@@ -12,6 +12,7 @@ router.get('/category/populate', Category.categoriesByMain)
 router.get('/product/populate', Product.categoriesByProduct)
 router.post('/product/create', Product.create)
 router.delete('/category/deletebyid',Category.deleteById)
-router.delete('/product/deletebypid',Product.deleteByPId)
+router.get('/product/findbyId',Product.categoriesByProduct1)
+router.get('/category/findByid1',Category.categoriesByProduct2)
 
 module.exports = router

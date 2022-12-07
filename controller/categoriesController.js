@@ -1,4 +1,6 @@
+const { rawListeners } = require('../model/categories')
 const Category = require('../model/categories')
+const Product = require('../model/products')
 
 const create = async (req, res) => {
   try {
@@ -40,7 +42,17 @@ const categoriesByMain = async (req, res) => {
 
 const deleteById =async(req,res)=>{
   try {
-    await Category.deleteOne(req.body).exec()
+    // await Category.deleteMany(req.body).exec()
+    const parentDel = await Category.deleteOne({where:{
+      main_id:req.body.main_id
+    }});
+    const childDel = await Product.deleteOne({where:{
+      category_id: parentDel.main_id
+    }
+     
+    });
+
+    console.log(parentDel, childDel);
               res.status(200).json({
                   message: "record deleted successfully"
               })
@@ -51,6 +63,20 @@ const deleteById =async(req,res)=>{
     
           
 }
+const categoriesByProduct2 = async (req, res) => {
+  
+  try {
+    const resp1 = await Category.findOne({where:{
+      main_id:req.body.main_id
+    }})
+    res.json(resp1)
+  } catch (error) {
+    console.log(error)
+    res.status(400).json({
+      message: 'unable to find the record',
+      error: error
+    })
+  }
+}
 
-
-module.exports = { create, categoriesByMain,deleteById }
+module.exports = { create, categoriesByMain,deleteById,categoriesByProduct2 }

@@ -10,10 +10,10 @@ const mongooseSchemaCategories = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Product'
     },
-    categoryType: {
+    categoryType:[ {
       type: String,
       required: true
-    }
+    }]
   },
   { timestamps: true }
 )

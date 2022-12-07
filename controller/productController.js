@@ -37,22 +37,20 @@ const categoriesByProduct = async (req, res) => {
     })
   }
 }
-//delete the record
-const deleteByPId =async(req,res)=>{
+const categoriesByProduct1 = async (req, res) => {
+  
   try {
-    await Product.deleteOne(req.body).exec()
-              res.status(200).json({
-                  message: "record deleted successfully"
-              })
+    const resp1 = await Product.findOne({where:{
+      category_id:req.body.category_id
+    }})
+    res.json(resp1)
   } catch (error) {
-
-    console.log(error);
+    console.log(error)
     res.status(400).json({
-      message: "record is not deleted "
-  })
+      message: 'unable to find the record',
+      error: error
+    })
   }
-    
-
-          
 }
-module.exports = { create, categoriesByProduct,deleteByPId }
+
+module.exports = { create, categoriesByProduct,categoriesByProduct1}
